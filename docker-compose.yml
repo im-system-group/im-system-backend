@@ -11,6 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./build/mysql.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - im-network
 

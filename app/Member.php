@@ -9,7 +9,7 @@ class Member extends User
 {
     use HasApiTokens;
 
-    protected $attributes = [
-        'id', 'account', 'email', 'password', 'photo'
+    protected $fillable = [
+        'id', 'account', 'name', 'email', 'password', 'photo'
     ];
 }

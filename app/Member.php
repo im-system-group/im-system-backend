@@ -12,4 +12,9 @@ class Member extends User
     protected $fillable = [
         'id', 'account', 'name', 'email', 'password', 'photo'
     ];
+
+    public function setPasswordAttribute(string $password)
+    {
+        $this->attributes['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
 }

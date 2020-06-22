@@ -12,7 +12,7 @@ class RegisterService
     {
         return DB::transaction(fn() => Member::create([
             'account' => $request->account,
-            'password' => password_hash($request->password, PASSWORD_DEFAULT),
+            'password' => $request->password,
             'name' => $request->name,
             'email' => $request->email
         ]));

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: IMSystem_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: IMSystem
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./build/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - im-network
+
+networks:
+  im-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
+

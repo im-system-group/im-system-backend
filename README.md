@@ -8,6 +8,7 @@
   * `DB_PASSWORD`
   
 * execute `cp .env.example .env`  
+  if OS is windows `copy .env.example .env`
   
 > If you use docker to Build <br>
   * Highly recommended change `docker-compose.yml` **MYSQL_ROOT_PASSWORD** to your password for security

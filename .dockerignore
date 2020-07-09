@@ -1,0 +1,17 @@
+/vendor
+.DS_Store
+.env
+.phpunit.result.cache
+.idea/
+.git
+Dockerfile*
+docker-compose*
+.dockerignore
+node_modules
+vendor
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+storage/logs/*
+/build

@@ -7,10 +7,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: IMSystem
-      MYSQL_ROOT_PASSWORD: Arcrootpassword
-      MYSQL_USER: Xenon
-      MYSQL_PASSWORD: cherrya
+      - MYSQL_DATABASE=IMSystem
+      - MYSQL_ROOT_PASSWORD=ArcSecurePassword
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
       - ./build/mysql.cnf:/etc/mysql/conf.d/custom.cnf

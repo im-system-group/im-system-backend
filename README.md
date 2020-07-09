@@ -1,14 +1,19 @@
 # IM-system backend
 
-**前置設置**
-* 請把 docker-compose.yml 以下三個參數的值換成喜歡的密碼
-  * `MYSQL_ROOT_PASSWORD`
-  * `MYSQL_USER`
-  * `MYSQL_PASSWORD`
+## Preparation
 
-* 請把 .env.example 以下兩個參數的值換成喜歡的密碼
-  * `DB_USERNAME`
+* Change `.env.example` following variable to your DB setting
+  * `DB_USERNAME` 
+     > notice: if you use docker to build, this variable **must not be root**
   * `DB_PASSWORD`
+  
+* execute `cp .env.example .env`  
+  
+> If you use docker to Build <br>
+  * Highly recommended change `docker-compose.yml` **MYSQL_ROOT_PASSWORD** to your password for security
 
-**Build**
+  
+
+
+**Build with docker**
 - `docker-compose up -d`

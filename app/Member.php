@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class Member extends User
@@ -15,6 +16,6 @@ class Member extends User
 
     public function setPasswordAttribute(string $password)
     {
-        $this->attributes['password'] = password_hash($password, PASSWORD_DEFAULT);
+        $this->attributes['password'] = Hash::make($password);
     }
 }

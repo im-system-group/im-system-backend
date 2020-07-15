@@ -16,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->group(function () {
     Route::apiResource('register', 'RegisterController')->only('store');
+    Route::post('login', 'AuthController@store')->name('login.store');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
+    });
 });

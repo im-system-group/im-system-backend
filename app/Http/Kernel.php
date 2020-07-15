@@ -24,6 +24,10 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+    protected $middlewarePriority = [
+        \App\Http\Middleware\ForceJson::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *

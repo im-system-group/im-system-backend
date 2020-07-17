@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -27,5 +28,15 @@ class Member extends User
     public function setPasswordAttribute(string $password)
     {
         $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function articles(): HasMany
+    {
+        $this->hasMany(Articles::class);
+    }
+
+    public function comments(): HasMany
+    {
+        $this->hasMany(Comments::class);
     }
 }

@@ -3,6 +3,9 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Articles extends UuidModel
 {
     protected $attributes = [
@@ -17,4 +20,14 @@ class Articles extends UuidModel
     protected $casts = [
         'like_info' => 'array'
     ];
+
+    public function member() :BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
+
+    public function comments() :HasMany
+    {
+        return $this->hasMany(Comments::class);
+    }
 }

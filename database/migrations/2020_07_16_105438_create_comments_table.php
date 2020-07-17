@@ -15,9 +15,9 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('author_id');
-            $table->uuid('article_id');
-            $table->text('content');
+            $table->uuid('author_id')->comment('留言者ID');
+            $table->uuid('article_id')->comment('文章ID');
+            $table->text('content')->comment('留言內容');
             $table->timestamps();
 
             $table->foreign('author_id')->references('id')->on('members');

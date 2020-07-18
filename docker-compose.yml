@@ -43,6 +43,18 @@ services:
     networks:
       - im-network
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: IM_Database_admin
+    ports:
+    - "9090:80"
+    networks:
+      - im-network
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - mysql
+
 networks:
   im-network:
     driver: bridge

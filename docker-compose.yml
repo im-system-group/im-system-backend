@@ -7,7 +7,7 @@ services:
       dockerfile: ./build/Dockerfile
     image: im-system-app
     volumes:
-      - ./storage:/var/www/storage
+      - ./:/var/www
     container_name: IMSystem_backend
     restart: always
     networks:

@@ -28,5 +28,7 @@ RUN cp .env.example .env
 
 RUN php artisan key:generate && php artisan storage:link && php artisan optimize
 
+USER www-data
+
 EXPOSE 9000
 ENTRYPOINT ["php-fpm", "-F"]

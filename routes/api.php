@@ -20,5 +20,7 @@ Route::middleware('api')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
+
+        Route::apiResource('member', 'MemberController')->only('index', 'update');
     });
 });

@@ -10,12 +10,14 @@ use App\Member;
 use App\Services\Member\UpdateService;
 use Illuminate\Support\Facades\Auth;
 
-class MemberController
+class MemberController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        return response(new MemberResource($user));
+        return (new MemberResource($user))
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function update(Member $member, UpdateRequest $request, UpdateService $service)

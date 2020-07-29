@@ -33,7 +33,9 @@ class Member extends User
 
     public function getPhotoAttribute()
     {
-        return Storage::disk('public')->url($this->attributes['photo']);
+        if ($this->attributes['photo']) {
+            return Storage::disk('public')->url($this->attributes['photo']);
+        }
     }
 
     public function articles(): HasMany

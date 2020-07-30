@@ -33,7 +33,7 @@ class UpdateService
         }
 
         return DB::transaction(function () use ($member) {
-            $member->save();
+            return $member->save();
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class MemberResource extends JsonResource
 {
@@ -21,7 +22,7 @@ class MemberResource extends JsonResource
             'account' => $this->account,
             'name' => $this->name,
             'email' => $this->email,
-            'avatar' => $this->photo
+            'avatar' => $this->when(($this->photo != null), Storage::disk('public')->url($this->photo), null)
         ];
     }
 }

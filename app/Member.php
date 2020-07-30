@@ -31,13 +31,6 @@ class Member extends User
         $this->attributes['password'] = Hash::make($password);
     }
 
-    public function getPhotoAttribute()
-    {
-        if ($this->attributes['photo']) {
-            return Storage::disk('public')->url($this->attributes['photo']);
-        }
-    }
-
     public function articles(): HasMany
     {
         $this->hasMany(Articles::class);

@@ -7,7 +7,7 @@ services:
       dockerfile: ./build/Dockerfile
     image: im-system-app
     volumes:
-      - app_data:/var/www
+      - ./:/var/www
     container_name: IMSystem_backend
     restart: always
     networks:
@@ -17,8 +17,8 @@ services:
     image: nginx:latest
     container_name: IMSystem_server
     volumes:
-     - app_data:/var/www
      - ./build/nginx/vhost.conf:/etc/nginx/conf.d/default.conf
+     - ./:/var/www
     ports:
      - "8080:80"
     depends_on:
@@ -42,6 +42,18 @@ services:
       - ./build/mysql.cnf:/etc/mysql/conf.d/custom.cnf
     networks:
       - im-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: IM_Database_admin
+    ports:
+    - "9090:80"
+    networks:
+      - im-network
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - mysql
 
 networks:
   im-network:

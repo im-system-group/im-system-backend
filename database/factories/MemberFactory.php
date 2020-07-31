@@ -11,5 +11,6 @@ $factory->define(Member::class, function (Faker $faker) {
         'account' => $faker->unique()->userName,
         'email' => $faker->email,
         'password' => $faker->password,
+        'photo' => null,
     ];
 });

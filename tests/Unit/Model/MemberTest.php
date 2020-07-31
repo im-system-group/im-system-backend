@@ -12,5 +12,6 @@ class MemberTest extends TestCase
     {
         $member = factory(Member::class)->create();
         $this->assertTrue($member->hasSetMutator('password'));
+        $this->assertTrue($member->hasGetMutator('photo'));
     }
 }

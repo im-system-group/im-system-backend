@@ -22,5 +22,6 @@ Route::middleware('api')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
 
         Route::apiResource('member', 'MemberController')->only('index', 'update');
+        Route::apiResource('articles', 'ArticleController');
     });
 });

@@ -4,7 +4,7 @@
 namespace App\Services\DataTransfer;
 
 
-use App\Articles;
+use App\Article;
 use App\Comments;
 use App\Member;
 use Illuminate\Support\Collection;
@@ -20,7 +20,7 @@ class ArticleService
 
         DB::transaction(function () use ($articles) {
             DB::statement("set session sql_mode='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'");
-            Articles::insert($articles->filter()->toArray());
+            Article::insert($articles->filter()->toArray());
         });
 
         echo "Article Data Complete.\n";

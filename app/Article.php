@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
-class Articles extends UuidModel
+class Article extends UuidModel
 {
     protected $attributes = [
         'like_info' => []

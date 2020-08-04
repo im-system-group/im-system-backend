@@ -12,7 +12,7 @@ class Comments extends UuidModel
 
     public function article() :BelongsTo
     {
-        return $this->belongsTo(Articles::class);
+        return $this->belongsTo(Article::class);
     }
 
     public function author() :BelongsTo

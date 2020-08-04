@@ -33,7 +33,7 @@ class Member extends User
 
     public function articles(): HasMany
     {
-        $this->hasMany(Articles::class);
+        $this->hasMany(Article::class);
     }
 
     public function comments(): HasMany

@@ -4,13 +4,13 @@
 namespace App\Services\Article;
 
 
-use App\Articles;
+use App\Article;
 
 class SearchService
 {
     public function search($perPage)
     {
-        return Articles::with('author')
+        return Article::with('author')
             ->paginate($perPage);
     }
 }

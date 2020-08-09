@@ -22,6 +22,11 @@ Route::middleware('api')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
 
         Route::apiResource('member', 'MemberController')->only('index', 'update');
-        Route::apiResource('articles', 'ArticleController');
+        Route::namespace('Article')->group(function () {
+            Route::apiResource('articles', 'ArticleController');
+            Route::patch('articles/{article}/favorite', 'ArticleController@favorite')
+                ->name('articles.favorite.update');
+        });
+
     });
 });

@@ -22,6 +22,13 @@ class ArticleController extends Controller
             ->setStatusCode(200);
     }
 
+    public function show(Article $article)
+    {
+        return (new ArticleResource($article->load('author')))
+            ->response()
+            ->setStatusCode(200);
+    }
+
     public function favorite(Article $article, FavoriteRequest $request, UpdateService $service)
     {
         $user = Auth::user();

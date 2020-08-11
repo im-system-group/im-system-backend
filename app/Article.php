@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class Article extends UuidModel
 {
+    protected $attributes = [
+        'like_info' => "[]"
+    ];
+
     protected $fillable = [
         'id', 'author_id', 'title', 'content', 'image', 'like_info'
     ];

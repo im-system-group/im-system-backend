@@ -6,8 +6,11 @@ use App\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\FavoriteRequest;
 use App\Http\Requests\Article\SearchRequest;
+use App\Http\Requests\Article\StoreRequest;
 use App\Http\Resources\ArticleResource;
+use App\Member;
 use App\Services\Article\SearchService;
+use App\Services\Article\StoreService;
 use App\Services\Article\UpdateService;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +23,14 @@ class ArticleController extends Controller
         return ArticleResource::collection($service->search($perPage))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function store(StoreRequest $request, StoreService $service)
+    {
+        $user = Auth::user();
+
+        $service->store($user, $request);
+        return response('', 204);
     }
 
     public function show(Article $article)

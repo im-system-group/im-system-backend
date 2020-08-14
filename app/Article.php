@@ -44,4 +44,14 @@ class Article extends UuidModel
     {
         return in_array(Auth::id(), $this->like_info);
     }
+
+    public function setTitleAttribute(string $title)
+    {
+        $this->attributes['title'] = htmlentities($title, ENT_QUOTES, 'UTF-8');
+    }
+
+    public function setContentAttribute(string $content)
+    {
+        $this->attributes['content'] = htmlentities($content, ENT_QUOTES, 'UTF-8');
+    }
 }

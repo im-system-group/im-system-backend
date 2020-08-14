@@ -27,8 +27,8 @@ class UpdateService
         }
 
         DB::transaction(function () use ($article, $request) {
-            $article->title = htmlentities($request->title, ENT_QUOTES, 'UTF-8');
-            $article->content = htmlentities($request->content, ENT_QUOTES, 'UTF-8');
+            $article->title = $request->title;
+            $article->content = $request->content;
             $article->save();
         });
     }

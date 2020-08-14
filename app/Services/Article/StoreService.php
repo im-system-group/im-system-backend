@@ -16,8 +16,8 @@ class StoreService
     public function store(Member $member, StoreRequest $request)
     {
         $article = new Article([
-            'title' => htmlentities($request->title, ENT_QUOTES, 'UTF-8'),
-            'content' => htmlentities($request->content, ENT_QUOTES, 'UTF-8'),
+            'title' => $request->title,
+            'content' => $request->content,
         ]);
 
         if ($request->hasFile('image')) {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\FavoriteRequest;
 use App\Http\Requests\Article\SearchRequest;
 use App\Http\Requests\Article\StoreRequest;
+use App\Http\Requests\Article\UpdateRequest;
 use App\Http\Resources\ArticleResource;
 use App\Member;
 use App\Services\Article\SearchService;
@@ -38,6 +39,12 @@ class ArticleController extends Controller
         return (new ArticleResource($article->load('author')))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function update(Article $article, UpdateRequest $request, UpdateService $service)
+    {
+        $service->update($article, $request);
+        return response('', 204);
     }
 
     public function favorite(Article $article, FavoriteRequest $request, UpdateService $service)

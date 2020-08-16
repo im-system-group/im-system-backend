@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->string('image')->nullable()->comment('文章圖片');
             $table->json('like_info')->comment('按讚紀錄');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('author_id')->references('id')->on('members');
         });

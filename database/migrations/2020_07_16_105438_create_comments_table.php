@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->uuid('article_id')->comment('文章ID');
             $table->text('content')->comment('留言內容');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('author_id')->references('id')->on('members');
             $table->foreign('article_id')->references('id')->on('articles');

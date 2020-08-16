@@ -69,7 +69,7 @@ class ArticleService
 
             $article->id = Str::orderedUuid();
             $article->author_id = Member::where('account', $article->poster)->first()->id;
-            $article->content = $article->text;
+            $article->content = preg_replace('/<br(\s+)?\/?>/i', "\n", $article->text);
 
             $article->image = (substr($article->photo, 0, 2) == '..') ?
                 substr($article->photo, 3) :
@@ -105,7 +105,7 @@ class ArticleService
             $comment->author_id = Member::where('account', $comment->commenter)->first()->id;
             $comment->article_id = $articleId;
             $comment->created_at = $comment->updated_at = $comment->post_time;
-            $comment->content = $comment->text;
+            $comment->content = preg_replace('/<br(\s+)?\/?>/i', "\n", $comment->text);
 
             unset($comment->commenter, $comment->post_time, $comment->text);
             return (array) $comment;

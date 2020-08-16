@@ -9,7 +9,6 @@ use App\Http\Requests\Article\SearchRequest;
 use App\Http\Requests\Article\StoreRequest;
 use App\Http\Requests\Article\UpdateRequest;
 use App\Http\Resources\ArticleResource;
-use App\Member;
 use App\Services\Article\SearchService;
 use App\Services\Article\StoreService;
 use App\Services\Article\UpdateService;
@@ -44,6 +43,12 @@ class ArticleController extends Controller
     public function update(Article $article, UpdateRequest $request, UpdateService $service)
     {
         $service->update($article, $request);
+        return response('', 204);
+    }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
         return response('', 204);
     }
 

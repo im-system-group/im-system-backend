@@ -15,6 +15,8 @@ class Member extends User
 
     public $incrementing = false;
 
+    protected $keyType = 'string';
+
     protected $fillable = [
         'id', 'account', 'name', 'email', 'password', 'photo'
     ];
@@ -33,11 +35,11 @@ class Member extends User
 
     public function articles(): HasMany
     {
-        $this->hasMany(Articles::class);
+        return $this->hasMany(Article::class, 'author_id');
     }
 
     public function comments(): HasMany
     {
-        $this->hasMany(Comments::class);
+        return $this->hasMany(Comments::class);
     }
 }

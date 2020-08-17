@@ -56,6 +56,7 @@ class SearchTest extends ActingLogin
                     'likeNum',
                     'isLiked',
                     'image',
+                    'isDeleted',
                     'author' => [
                         'id',
                         'account',

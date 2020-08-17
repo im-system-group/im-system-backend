@@ -5,10 +5,44 @@ namespace Article;
 
 
 use App\Article;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\Feature\ActingLogin;
 
 class UpdateTest extends ActingLogin
 {
+    public function testUpdate()
+    {
+        Storage::fake();
+
+        $article = factory(Article::class)->create([
+            'author_id' => $this->member->id
+        ]);
+        $newTitle = 'Update title';
+        $newContent = 'test content😀';
+        $newImage = UploadedFile::fake()->image('test.png');
+
+        $response = $this->patchJson(route('articles.update', [
+            'article' => $article->id
+        ]), [
+            'title' => $newTitle,
+            'content' => $newContent,
+            'image' => $newImage
+        ]);
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseHas('articles', [
+            'id' => $article->id,
+            'title' => $newTitle,
+            'content' => $newContent
+        ]);
+
+        $image = $article->refresh()->image;
+
+        Storage::disk('public')->assertExists($image);
+    }
+
     public function testSetFavorite()
     {
         $article = factory(Article::class)->create();

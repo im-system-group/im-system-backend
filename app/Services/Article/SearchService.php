@@ -11,6 +11,7 @@ class SearchService
     public function search($perPage)
     {
         return Article::with('author')
+            ->withTrashed()
             ->paginate($perPage);
     }
 }

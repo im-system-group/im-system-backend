@@ -5,10 +5,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class Article extends UuidModel
 {
+    use SoftDeletes;
+
+    protected $attributes = [
+        'like_info' => "[]"
+    ];
+
     protected $fillable = [
         'id', 'author_id', 'title', 'content', 'image', 'like_info'
     ];
@@ -39,5 +46,15 @@ class Article extends UuidModel
     public function getLikedAttribute()
     {
         return in_array(Auth::id(), $this->like_info);
+    }
+
+    public function setTitleAttribute(string $title)
+    {
+        $this->attributes['title'] = htmlentities($title, ENT_QUOTES, 'UTF-8');
+    }
+
+    public function setContentAttribute(string $content)
+    {
+        $this->attributes['content'] = htmlentities($content, ENT_QUOTES, 'UTF-8');
     }
 }

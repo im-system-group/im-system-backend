@@ -35,11 +35,11 @@ class Member extends User
 
     public function articles(): HasMany
     {
-        $this->hasMany(Article::class);
+        return $this->hasMany(Article::class, 'author_id');
     }
 
     public function comments(): HasMany
     {
-        $this->hasMany(Comments::class);
+        return $this->hasMany(Comments::class);
     }
 }

@@ -26,6 +26,8 @@ Route::middleware('api')->group(function () {
             Route::apiResource('articles', 'ArticleController');
             Route::patch('articles/{article}/favorite', 'ArticleController@favorite')
                 ->name('articles.favorite.update');
+
+            Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
         });
 
     });

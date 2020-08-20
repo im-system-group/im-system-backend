@@ -18,7 +18,7 @@ class ArticleController extends Controller
 {
     public function index(SearchRequest $request, SearchService $service)
     {
-        $perPage = (int) $request->perPage ?? 10;
+        $perPage = $request->perPage ?? 10;
 
         return ArticleResource::collection($service->search($perPage))
             ->response()

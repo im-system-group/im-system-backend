@@ -1,20 +1,12 @@
 <?php
 
+
 namespace App\Http\Requests\Article;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest
+use App\Http\Requests\PerPageRequest;
+
+class SearchRequest extends PerPageRequest
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            'perPage' => 'numeric',
-        ];
-    }
+
 }

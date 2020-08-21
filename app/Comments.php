@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comments extends UuidModel
 {
+    use SoftDeletes;
+
     protected $fillable = [
-        'id', 'author_id', 'article_id', 'content'
+        'id', 'content', 'is_banned'
     ];
 
     public function article() :BelongsTo

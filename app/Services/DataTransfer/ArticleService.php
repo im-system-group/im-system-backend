@@ -5,7 +5,7 @@ namespace App\Services\DataTransfer;
 
 
 use App\Article;
-use App\Comments;
+use App\Comment;
 use App\Member;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -31,9 +31,9 @@ class ArticleService
             $insertCommentData->push($comments);
         });
 
-        DB::transaction(fn() => Comments::insert($insertCommentData->flatten(1)->filter()->toArray()));
+        DB::transaction(fn() => Comment::insert($insertCommentData->flatten(1)->filter()->toArray()));
 
-        echo "Comments Data Complete.\n";
+        echo "Comment Data Complete.\n";
 
     }
 

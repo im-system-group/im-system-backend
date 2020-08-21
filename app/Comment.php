@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Comments extends UuidModel
+class Comment extends UuidModel
 {
     use SoftDeletes;
 

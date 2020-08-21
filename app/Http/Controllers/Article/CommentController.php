@@ -12,6 +12,11 @@ use App\Services\Comment\SearchService;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index');
+    }
+
     public function index(Article $article, SearchRequest $request, SearchService $service)
     {
         $perPage = $request->perPage ?? 10;

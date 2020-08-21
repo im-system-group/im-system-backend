@@ -18,6 +18,10 @@ Route::middleware('api')->group(function () {
     Route::apiResource('register', 'RegisterController')->only('store');
     Route::post('login', 'AuthController@store')->name('login.store');
 
+    Route::namespace('Article')->group(function () {
+        Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
+    });
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
 
@@ -26,8 +30,6 @@ Route::middleware('api')->group(function () {
             Route::apiResource('articles', 'ArticleController');
             Route::patch('articles/{article}/favorite', 'ArticleController@favorite')
                 ->name('articles.favorite.update');
-
-            Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
         });
 
     });

@@ -22,4 +22,9 @@ class Comment extends UuidModel
     {
         return $this->belongsTo(Member::class);
     }
+
+    public function setContentAttribute(string $content)
+    {
+        $this->attributes['content'] = htmlentities($content, ENT_QUOTES, 'UTF-8');
+    }
 }

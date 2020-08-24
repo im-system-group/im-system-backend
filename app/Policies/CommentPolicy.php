@@ -29,11 +29,12 @@ class CommentPolicy
      *
      * @param Member $member
      * @param Article $article
+     * @param Comment $comment
      * @return mixed
      */
-    public function update(Member $member, Article $article)
+    public function update(Member $member, $article, Comment $comment)
     {
-
+        return !$this->isBanned($member, $article) && ($member->id == $comment->author_id);
     }
 
     /**

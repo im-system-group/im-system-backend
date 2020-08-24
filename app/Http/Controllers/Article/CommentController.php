@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Article;
 
 
 use App\Article;
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\SearchRequest;
 use App\Http\Requests\Comment\StoreRequest;
+use App\Http\Requests\Comment\UpdateRequest;
 use App\Http\Resources\CommentResource;
 use App\Services\Comment\SearchService;
 use App\Services\Comment\StoreService;
+use App\Services\Comment\UpdateService;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -34,6 +37,12 @@ class CommentController extends Controller
         $user = Auth::user();
 
         $service->store($user, $article, $request);
+        return response('', 204);
+    }
+
+    public function update(Article $article, Comment $comment, UpdateRequest $request, UpdateService $service)
+    {
+        $service->update($comment, $request);
         return response('', 204);
     }
 

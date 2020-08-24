@@ -6,8 +6,6 @@ namespace Comment;
 
 use App\Article;
 use App\Comment;
-use App\Member;
-use Laravel\Sanctum\Sanctum;
 use Tests\Feature\ActingLogin;
 
 class StoreTest extends ActingLogin

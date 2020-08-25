@@ -76,4 +76,31 @@ class UpdateTest extends ActingLogin
         $response->assertStatus(403);
     }
 
+    public function testSetBanned()
+    {
+        $article = factory(Article::class)->create([
+            'author_id' => $this->member
+        ]);
+
+        $comment = factory(Comment::class)->create([
+            'article_id' => $article,
+        ]);
+
+        $isBanned = true;
+
+        $response = $this->patchJson(route('articles.comments.ban', [
+            $article,
+            $comment
+        ]), [
+            'ban' => $isBanned
+        ]);
+
+        $response->assertStatus(204);
+        $this->assertDatabaseHas('comments', [
+            'id' => $comment->id,
+            'article_id' => $article->id,
+            'is_banned' => $isBanned
+        ]);
+    }
+
 }

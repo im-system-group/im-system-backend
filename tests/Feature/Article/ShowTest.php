@@ -23,8 +23,8 @@ class ShowTest extends ActingLogin
                 'content' => $article->content,
                 'likeNum' => count($article->like_info),
                 'isLiked' => in_array($this->member->id, $article->like_info),
-                'image' => null,
                 'isDeleted' => false,
+                'image' => null,
                 'author' => [
                     'id' => $author->id,
                     'account' => $author->account,

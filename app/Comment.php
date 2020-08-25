@@ -13,6 +13,11 @@ class Comment extends UuidModel
         'id', 'content', 'is_banned'
     ];
 
+    protected $casts = [
+        'is_banned' => 'boolean'
+    ];
+
+
     public function article() :BelongsTo
     {
         return $this->belongsTo(Article::class);

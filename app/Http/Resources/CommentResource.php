@@ -19,6 +19,7 @@ class CommentResource extends JsonResource
             'id' => $this->id,
             'content' => html_entity_decode($this->content),
             'isDeleted' => isset($this->deleted_at),
+            'isBanned' => $this->is_banned,
             'author' => (new MemberResource($this->whenLoaded('author')))
         ];
     }

@@ -18,6 +18,11 @@ Route::middleware('api')->group(function () {
     Route::apiResource('register', 'RegisterController')->only('store');
     Route::post('login', 'AuthController@store')->name('login.store');
 
+    Route::namespace('Article')->group(function () {
+        Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
+        Route::patch('articles/{article}/comments/{comment}/ban', 'CommentController@ban')->name('articles.comments.ban');
+    });
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
 

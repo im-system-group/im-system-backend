@@ -8,7 +8,7 @@ use App\Article;
 
 class SearchService
 {
-    public function search($perPage)
+    public function search(int $perPage)
     {
         return Article::with('author')
             ->withTrashed()

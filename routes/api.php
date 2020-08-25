@@ -20,6 +20,7 @@ Route::middleware('api')->group(function () {
 
     Route::namespace('Article')->group(function () {
         Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
+        Route::patch('articles/{article}/comments/{comment}/ban', 'CommentController@ban')->name('articles.comments.ban');
     });
 
     Route::middleware('auth:sanctum')->group(function () {

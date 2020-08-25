@@ -46,4 +46,16 @@ class CommentController extends Controller
         return response('', 204);
     }
 
+    public function destroy(Article $article, Comment $comment)
+    {
+        $this->authorize('delete', [
+            Comment::class,
+            $article,
+            $comment
+        ]);
+
+        $comment->delete();
+        return response('', 204);
+    }
+
 }

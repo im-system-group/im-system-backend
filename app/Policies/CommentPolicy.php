@@ -32,7 +32,7 @@ class CommentPolicy
      * @param Comment $comment
      * @return mixed
      */
-    public function update(Member $member, $article, Comment $comment)
+    public function update(Member $member, Article $article, Comment $comment)
     {
         return !$this->isBanned($member, $article) && ($member->id == $comment->author_id);
     }
@@ -40,13 +40,14 @@ class CommentPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Member  $member
-     * @param  \App\Comment  $comment
+     * @param Member $member
+     * @param Article $article
+     * @param Comment $comment
      * @return mixed
      */
-    public function delete(Member $member, Comment $comment)
+    public function delete(Member $member, Article $article, Comment $comment)
     {
-        //
+        return !$this->isBanned($member, $article) && ($member->id == $comment->author_id);
     }
 
     /**

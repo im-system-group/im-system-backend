@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Article;
 use App\Article;
 use App\Comment;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Comment\BanRequest;
 use App\Http\Requests\Comment\SearchRequest;
 use App\Http\Requests\Comment\StoreRequest;
 use App\Http\Requests\Comment\UpdateRequest;
@@ -58,4 +59,9 @@ class CommentController extends Controller
         return response('', 204);
     }
 
+    public function ban(Article $article, Comment $comment, BanRequest $request, UpdateService $service)
+    {
+        $service->update($comment, $request);
+        return response('', 204);
+    }
 }

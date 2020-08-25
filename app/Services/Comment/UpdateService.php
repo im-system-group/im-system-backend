@@ -16,6 +16,10 @@ class UpdateService
             $comment->content = $request->content;
         }
 
+        if ($request->has('ban')) {
+            $comment->is_banned = $request->ban;
+        }
+
         DB::transaction(fn() => $comment->save());
     }
 

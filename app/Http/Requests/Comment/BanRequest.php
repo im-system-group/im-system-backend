@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Comment;
 
+use App\Article;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BanRequest extends FormRequest
@@ -13,7 +14,10 @@ class BanRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('update', [
+            Article::class,
+            $this->route('article'),
+        ]);
     }
 
     /**

@@ -15,7 +15,10 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->route('article')->author_id == Auth::id();
+        return $this->user()->can('update', [
+            Article::class,
+            $this->route('article'),
+        ]);
     }
 
 

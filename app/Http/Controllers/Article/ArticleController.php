@@ -48,6 +48,11 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        $this->authorize('delete', [
+            Article::class,
+            $article
+        ]);
+
         $article->delete();
         return response('', 204);
     }

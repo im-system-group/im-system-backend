@@ -103,4 +103,24 @@ class UpdateTest extends ActingLogin
         ]);
     }
 
+    public function testSetBannedWithNotArticleAuthor()
+    {
+        $article = factory(Article::class)->create();
+
+        $comment = factory(Comment::class)->create([
+            'article_id' => $article,
+        ]);
+
+        $isBanned = true;
+
+        $response = $this->patchJson(route('articles.comments.ban', [
+            $article,
+            $comment
+        ]), [
+            'ban' => $isBanned
+        ]);
+
+        $response->assertStatus(403);
+    }
+
 }

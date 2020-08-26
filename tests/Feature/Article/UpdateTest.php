@@ -43,6 +43,24 @@ class UpdateTest extends ActingLogin
         Storage::disk('public')->assertExists($image);
     }
 
+    public function testUpdateWithNotAuthor()
+    {
+        Storage::fake();
+
+        $article = factory(Article::class)->create();
+        $newTitle = 'Update title';
+        $newContent = 'test content😀';
+        $newImage = UploadedFile::fake()->image('test.png');
+
+        $response = $this->patchJson(route('articles.update', $article->id), [
+            'title' => $newTitle,
+            'content' => $newContent,
+            'image' => $newImage
+        ]);
+
+        $response->assertStatus(403);
+    }
+
     public function testSetFavorite()
     {
         $article = factory(Article::class)->create();

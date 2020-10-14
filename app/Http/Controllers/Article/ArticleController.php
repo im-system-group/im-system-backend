@@ -12,15 +12,25 @@ use App\Http\Resources\ArticleResource;
 use App\Services\Article\SearchService;
 use App\Services\Article\StoreService;
 use App\Services\Article\UpdateService;
+use App\Util\CheckToken;
 use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
+    use CheckToken;
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except('index', 'show');
+    }
+
     public function index(SearchRequest $request, SearchService $service)
     {
+        $memberId = $this->getMember($request->bearerToken());
+
         $perPage = $request->perPage ?? 10;
 
-        return ArticleResource::collection($service->search($perPage))
+        return ArticleResource::collection($service->search($perPage, $memberId))
             ->response()
             ->setStatusCode(200);
     }

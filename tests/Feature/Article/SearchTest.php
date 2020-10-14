@@ -7,9 +7,10 @@ namespace Article;
 use App\Article;
 use App\Member;
 use Illuminate\Testing\TestResponse;
-use Tests\Feature\ActingLogin;
+use Laravel\Sanctum\Sanctum;
+use Tests\TestCase;
 
-class SearchTest extends ActingLogin
+class SearchTest extends TestCase
 {
     public function testIndex()
     {
@@ -30,12 +31,17 @@ class SearchTest extends ActingLogin
     {
         $author = factory(Member::class)->create();
 
+        $member = Sanctum::actingAs(factory(Member::class)->create(), ['*']);
+
+        $token = $member->createToken($member->name)->plainTextToken;
+
         factory(Article::class)->create([
             'author_id' => $author->id,
-            'like_info' => [$this->member->id]
+            'like_info' => [$member->id]
         ]);
 
-        $response = $this->getJson(route('articles.index'));
+        $response = $this->withToken($token)
+            ->getJson(route('articles.index'));
 
         $data = $response->json('data.0');
         $this->assertSame(1, $data['likeNum']);

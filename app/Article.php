@@ -6,7 +6,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
 class Article extends UuidModel
 {
@@ -43,9 +42,9 @@ class Article extends UuidModel
         return count($this->like_info);
     }
 
-    public function getLikedAttribute()
+    public function setLikeStatusAttribute(?string $member)
     {
-        return in_array(Auth::id(), $this->like_info);
+        $this->attributes['like_status'] = ($member) ? in_array($member, $this->like_info) : false;
     }
 
     public function setTitleAttribute(string $title)

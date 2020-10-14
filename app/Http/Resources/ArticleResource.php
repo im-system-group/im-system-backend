@@ -21,7 +21,7 @@ class ArticleResource extends JsonResource
             'title' => $this->title,
             'content' => html_entity_decode($this->content),
             'likeNum' => $this->like,
-            'isLiked' => $this->liked,
+            'isLiked' => $this->like_status,
             'isDeleted' => isset($this->deleted_at),
             'image' => $this->when(($this->image != null), Storage::disk('public')->url($this->image), null),
             'author' => (new MemberResource($this->whenLoaded('author')))

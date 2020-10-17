@@ -4,6 +4,7 @@
 namespace App\Services\Member;
 
 
+use App\Http\Requests\Member\ResetPasswordRequest;
 use App\Http\Requests\Member\UpdateRequest;
 use App\Member;
 use App\Util\CanUpload;
@@ -31,6 +32,15 @@ class UpdateService
         if ($request->email) {
             $member->email = $request->email;
         }
+
+        return DB::transaction(function () use ($member) {
+            return $member->save();
+        });
+    }
+
+    public function updatePassword(ResetPasswordRequest $request, Member $member)
+    {
+        $member->password = $request->password;
 
         return DB::transaction(function () use ($member) {
             return $member->save();

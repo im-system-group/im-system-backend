@@ -30,6 +30,8 @@ Route::middleware('api')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::delete('logout', 'AuthController@destroy')->name('logout.destroy');
 
+        Route::patch('password-reset', 'MemberController@passwordReset')->name('member.reset');
+
         Route::apiResource('member', 'MemberController')->only('index', 'update');
     });
 });

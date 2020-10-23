@@ -4,7 +4,6 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\Member\ResetPasswordRequest;
 use App\Http\Requests\Member\UpdateRequest;
 use App\Http\Resources\MemberResource;
 use App\Member;
@@ -24,13 +23,6 @@ class MemberController extends Controller
     public function update(Member $member, UpdateRequest $request, UpdateService $service)
     {
         $service->update($request, $member);
-        return response('', 204);
-    }
-
-    public function passwordReset(ResetPasswordRequest $request, UpdateService $service)
-    {
-        $member = Auth::user();
-        $service->updatePassword($request, $member);
         return response('', 204);
     }
 }

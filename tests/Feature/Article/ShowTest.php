@@ -22,7 +22,7 @@ class ShowTest extends ActingLogin
             'data' => [
                 'id' => $article->id,
                 'title' => $article->title,
-                'content' => $article->content,
+                'content' => html_entity_decode($article->content),
                 'likeNum' => count($article->like_info),
                 'isLiked' => in_array($this->member->id, $article->like_info),
                 'isDeleted' => false,
@@ -58,7 +58,7 @@ class ShowTest extends ActingLogin
             'data' => [
                 'id' => $article->id,
                 'title' => $article->title,
-                'content' => $article->content,
+                'content' => html_entity_decode($article->content),
                 'likeNum' => count($article->like_info),
                 'isLiked' => true,
                 'isDeleted' => false,

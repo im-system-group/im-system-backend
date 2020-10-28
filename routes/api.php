@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('api')->group(function () {
     Route::apiResource('register', 'RegisterController')->only('store');
     Route::post('login', 'AuthController@store')->name('login.store');
+    //forgot password is legacy feature until email be unique key
+    Route::apiResource('forgot-password', 'ForgetPasswordController')->only('store');
 
     Route::namespace('Article')->group(function () {
         Route::apiResource('articles', 'ArticleController');

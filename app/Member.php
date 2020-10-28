@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -11,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Member extends User
 {
-    use HasApiTokens;
+    use HasApiTokens,Notifiable;
 
     public $incrementing = false;
 

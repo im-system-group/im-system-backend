@@ -25,4 +25,13 @@ class DestroyTest extends ActingLogin
         ]);
     }
 
+    public function testDestroyWithNotAuthor()
+    {
+        $article = factory(Article::class)->create();
+
+        $response = $this->deleteJson(route('articles.destroy', $article->id));
+
+        $response->assertStatus(403);
+    }
+
 }

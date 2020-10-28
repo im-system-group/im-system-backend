@@ -1,12 +1,11 @@
 <?php
 
-
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class ArticleResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,9 @@ class ArticleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
             'content' => html_entity_decode($this->content),
-            'likeNum' => $this->like,
-            'isLiked' => $this->like_status,
             'isDeleted' => isset($this->deleted_at),
-            'image' => $this->when(($this->image != null), Storage::disk('public')->url($this->image), null),
+            'isBanned' => $this->is_banned,
             'author' => (new MemberResource($this->whenLoaded('author')))
         ];
     }

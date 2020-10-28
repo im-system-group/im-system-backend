@@ -1,55 +1,35 @@
 <?php
 
 
-namespace Article;
+namespace Comment;
 
 
 use App\Article;
-use App\Member;
+use App\Comment;
 use Illuminate\Testing\TestResponse;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
     public function testIndex()
     {
-        $author = factory(Member::class)->create();
-
-        factory(Article::class)->create([
-            'author_id' => $author->id
+        $amount = 11;
+        $perPage = 20;
+        $article = factory(Article::class)->create();
+        factory(Comment::class, $amount)->create([
+            'article_id' => $article
         ]);
 
-        $response = $this->getJson(route('articles.index'));
+        $response = $this->getJson(route('articles.comments.index', [
+            $article->id,
+            'perPage' => $perPage
+        ]));
 
         $response->assertStatus(200);
-        $this->assertStructure($response);
-
-    }
-
-    public function testLike()
-    {
-        $author = factory(Member::class)->create();
-
-        $member = Sanctum::actingAs(factory(Member::class)->create(), ['*']);
-
-        $token = $member->createToken($member->name)->plainTextToken;
-
-        factory(Article::class)->create([
-            'author_id' => $author->id,
-            'like_info' => [$member->id]
-        ]);
-
-        $response = $this->withToken($token)
-            ->getJson(route('articles.index'));
-
-        $data = $response->json('data.0');
-        $this->assertSame(1, $data['likeNum']);
-        $this->assertSame(true, $data['isLiked']);
-        $response->assertStatus(200);
+        $this->assertSame($response->json('meta.total'), $amount);
+        $this->assertSame($response->json('meta.last_page'), (int) ceil($amount/$perPage));
         $this->assertStructure($response);
     }
-
 
     public function assertStructure(TestResponse $response)
     {
@@ -57,11 +37,7 @@ class SearchTest extends TestCase
             'data' => [
                 [
                     'id',
-                    'title',
                     'content',
-                    'likeNum',
-                    'isLiked',
-                    'image',
                     'isDeleted',
                     'author' => [
                         'id',
@@ -89,5 +65,4 @@ class SearchTest extends TestCase
             ]
         ]);
     }
-
 }

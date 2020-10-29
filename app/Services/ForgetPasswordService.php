@@ -7,7 +7,7 @@ namespace App\Services;
 use App\Http\Requests\ForgetPasswordRequest;
 use App\Member;
 use App\Notifications\ForgotPassword;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 
 class ForgetPasswordService
 {

@@ -4,6 +4,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Member;
+use Database\Factories\MemberFactory;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -11,7 +12,7 @@ class LogoutTest extends TestCase
 {
     public function testLogout()
     {
-        $member = Sanctum::actingAs(factory(Member::class)->create(), ['*']);
+        $member = Sanctum::actingAs(MemberFactory::new()->create(), ['*']);
 
         $response = $this->deleteJson(route('logout.destroy'));
 

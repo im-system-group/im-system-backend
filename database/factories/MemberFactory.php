@@ -1,16 +1,22 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Member;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Member::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'account' => $faker->unique()->userName,
-        'email' => $faker->email,
-        'password' => $faker->password,
-        'photo' => null,
-    ];
-});
+class MemberFactory extends Factory
+{
+    protected $model = Member::class;
+
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'account' => $this->faker->unique()->userName,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
+            'photo' => null,
+        ];
+    }
+}

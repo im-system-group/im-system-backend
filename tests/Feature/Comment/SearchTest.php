@@ -4,8 +4,8 @@
 namespace Comment;
 
 
-use App\Article;
-use App\Comment;
+use Database\Factories\ArticleFactory;
+use Database\Factories\CommentFactory;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
@@ -15,10 +15,12 @@ class SearchTest extends TestCase
     {
         $amount = 11;
         $perPage = 20;
-        $article = factory(Article::class)->create();
-        factory(Comment::class, $amount)->create([
-            'article_id' => $article
-        ]);
+        $article = ArticleFactory::new()->create();
+
+        CommentFactory::new()
+            ->for($article)
+            ->count($amount)
+            ->create();
 
         $response = $this->getJson(route('articles.comments.index', [
             $article->id,

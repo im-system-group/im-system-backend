@@ -4,8 +4,8 @@
 namespace Article;
 
 
-use App\Article;
-use App\Member;
+use Database\Factories\ArticleFactory;
+use Database\Factories\MemberFactory;
 use Illuminate\Testing\TestResponse;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -14,29 +14,21 @@ class SearchTest extends TestCase
 {
     public function testIndex()
     {
-        $author = factory(Member::class)->create();
-
-        factory(Article::class)->create([
-            'author_id' => $author->id
-        ]);
+        ArticleFactory::new()->for(MemberFactory::new(), 'author')->create();
 
         $response = $this->getJson(route('articles.index'));
 
         $response->assertStatus(200);
         $this->assertStructure($response);
-
     }
 
     public function testLike()
     {
-        $author = factory(Member::class)->create();
-
-        $member = Sanctum::actingAs(factory(Member::class)->create(), ['*']);
+        $member = Sanctum::actingAs(MemberFactory::new()->create(), ['*']);
 
         $token = $member->createToken($member->name)->plainTextToken;
 
-        factory(Article::class)->create([
-            'author_id' => $author->id,
+        ArticleFactory::new()->for(MemberFactory::new(), 'author')->create([
             'like_info' => [$member->id]
         ]);
 

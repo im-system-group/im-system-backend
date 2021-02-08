@@ -5,6 +5,7 @@ namespace Article;
 
 
 use App\Article;
+use Database\Factories\ArticleFactory;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\Feature\ActingLogin;
@@ -15,7 +16,7 @@ class UpdateTest extends ActingLogin
     {
         Storage::fake();
 
-        $article = factory(Article::class)->create([
+        $article = ArticleFactory::new()->create([
             'author_id' => $this->member->id
         ]);
         $newTitle = 'Update title';
@@ -47,7 +48,7 @@ class UpdateTest extends ActingLogin
     {
         Storage::fake();
 
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
         $newTitle = 'Update title';
         $newContent = 'test content😀';
         $newImage = UploadedFile::fake()->image('test.png');
@@ -63,7 +64,7 @@ class UpdateTest extends ActingLogin
 
     public function testSetFavorite()
     {
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
 
         $response = $this->patchJson(route('articles.favorite.update', $article->id), [
             'favorite' => true
@@ -78,7 +79,7 @@ class UpdateTest extends ActingLogin
 
     public function testRemoveFavorite()
     {
-        $article = factory(Article::class)->create([
+        $article = ArticleFactory::new()->create([
             'like_info' => [$this->member->id]
         ]);
 

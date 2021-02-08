@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Member;
+use Database\Factories\MemberFactory;
 use Tests\TestCase;
 
 class LoginTest extends TestCase
@@ -16,7 +17,7 @@ class LoginTest extends TestCase
     {
         $password = 'test123';
 
-        $member = factory(Member::class)->create([
+        $member = MemberFactory::new()->create([
             'password' => $password
         ]);
 

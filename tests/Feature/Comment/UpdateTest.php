@@ -4,19 +4,19 @@
 namespace Comment;
 
 
-use App\Article;
-use App\Comment;
+use Database\Factories\ArticleFactory;
+use Database\Factories\CommentFactory;
 use Tests\Feature\ActingLogin;
 
 class UpdateTest extends ActingLogin
 {
     public function testUpdate()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-            'author_id' => $this->member,
-        ]);
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->for($this->member, 'author')
+            ->create();
 
         $content = "update test\n update test 😀";
 
@@ -38,10 +38,10 @@ class UpdateTest extends ActingLogin
 
     public function testUpdateWithNotAuthor()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-        ]);
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->create();
 
         $content = "update test\n update test 😀";
 
@@ -57,12 +57,13 @@ class UpdateTest extends ActingLogin
 
     public function testUpdateWithBanned()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-            'author_id' => $this->member,
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new([
             'is_banned' => true
-        ]);
+        ])
+            ->for($article)
+            ->for($this->member, 'author')
+            ->create();
 
         $content = "update test\n update test 😀";
 
@@ -78,13 +79,13 @@ class UpdateTest extends ActingLogin
 
     public function testSetBanned()
     {
-        $article = factory(Article::class)->create([
-            'author_id' => $this->member
-        ]);
-
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-        ]);
+        $article = ArticleFactory::new()
+            ->for($this->member, 'author')
+            ->create();
+        
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->create();
 
         $isBanned = true;
 
@@ -105,11 +106,11 @@ class UpdateTest extends ActingLogin
 
     public function testSetBannedWithNotArticleAuthor()
     {
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
 
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-        ]);
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->create();
 
         $isBanned = true;
 

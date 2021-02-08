@@ -4,15 +4,15 @@
 namespace Comment;
 
 
-use App\Article;
-use App\Comment;
+use Database\Factories\ArticleFactory;
+use Database\Factories\CommentFactory;
 use Tests\Feature\ActingLogin;
 
 class StoreTest extends ActingLogin
 {
     public function testStore()
     {
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
         $content = "test\n test 😀";
 
         $response = $this->postJson(route('articles.comments.store', $article->id), [
@@ -30,12 +30,13 @@ class StoreTest extends ActingLogin
 
     public function testStoreWithBanned()
     {
-        $article = factory(Article::class)->create();
-        factory(Comment::class)->create([
-            'article_id' => $article,
-            'author_id' => $this->member,
+        $article = ArticleFactory::new()->create();
+        CommentFactory::new([
             'is_banned' => true
-        ]);
+        ])
+            ->for($article)
+            ->for($this->member, 'author')
+            ->create();
 
         $response = $this->postJson(route('articles.comments.store', $article->id), [
             'content' => 'banned test'

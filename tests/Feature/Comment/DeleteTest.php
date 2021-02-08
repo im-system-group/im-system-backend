@@ -4,19 +4,19 @@
 namespace Comment;
 
 
-use App\Article;
-use App\Comment;
+use Database\Factories\ArticleFactory;
+use Database\Factories\CommentFactory;
 use Tests\Feature\ActingLogin;
 
 class DeleteTest extends ActingLogin
 {
     public function testDelete()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-            'author_id' => $this->member,
-        ]);
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->for($this->member, 'author')
+            ->create();
 
         $response = $this->deleteJson(route('articles.comments.destroy', [
             $article,
@@ -33,12 +33,13 @@ class DeleteTest extends ActingLogin
 
     public function testDeleteWithBanned()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-            'author_id' => $this->member,
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new([
             'is_banned' => true
-        ]);
+        ])
+            ->for($article)
+            ->for($this->member, 'author')
+            ->create();
 
         $response = $this->deleteJson(route('articles.comments.destroy', [
             $article,
@@ -50,10 +51,10 @@ class DeleteTest extends ActingLogin
 
     public function testDeleteWithNotAuthor()
     {
-        $article = factory(Article::class)->create();
-        $comment = factory(Comment::class)->create([
-            'article_id' => $article,
-        ]);
+        $article = ArticleFactory::new()->create();
+        $comment = CommentFactory::new()
+            ->for($article)
+            ->create();
 
         $response = $this->deleteJson(route('articles.comments.destroy', [
             $article,

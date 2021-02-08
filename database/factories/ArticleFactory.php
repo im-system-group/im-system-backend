@@ -1,17 +1,22 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Article;
-use App\Member;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Article::class, function (Faker $faker) {
-    return [
-        'author_id' => factory(Member::class),
-        'title' => $faker->text(),
-        'content' => $faker->realText(),
-        'image' => null,
-        'like_info' => []
-    ];
-});
+class ArticleFactory extends Factory
+{
+    protected $model = Article::class;
+
+    public function definition()
+    {
+        return [
+            'author_id' => MemberFactory::new(),
+            'title' => $this->faker->text(),
+            'content' => $this->faker->realText(),
+            'image' => null,
+            'like_info' => []
+        ];
+    }
+}

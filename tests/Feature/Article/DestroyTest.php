@@ -4,14 +4,14 @@
 namespace Article;
 
 
-use App\Article;
+use Database\Factories\ArticleFactory;
 use Tests\Feature\ActingLogin;
 
 class DestroyTest extends ActingLogin
 {
     public function testDestroy()
     {
-        $article = factory(Article::class)->create([
+        $article = ArticleFactory::new()->create([
             'author_id' => $this->member->id
         ]);
 
@@ -27,7 +27,7 @@ class DestroyTest extends ActingLogin
 
     public function testDestroyWithNotAuthor()
     {
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
 
         $response = $this->deleteJson(route('articles.destroy', $article->id));
 

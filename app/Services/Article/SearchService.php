@@ -13,6 +13,7 @@ class SearchService
     {
         $articles = Article::with('author')
             ->withTrashed()
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
         $articles->getCollection()->each(fn($article) => $article->like_status = $memberId);

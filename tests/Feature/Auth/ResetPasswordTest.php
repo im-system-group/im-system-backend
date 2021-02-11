@@ -4,8 +4,7 @@
 namespace Tests\Feature\Auth;;
 
 
-use App\Member;
-use Illuminate\Support\Facades\Auth;
+use Database\Factories\MemberFactory;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\ActingLogin;
@@ -17,7 +16,7 @@ class ResetPasswordTest extends ActingLogin
         $oldPassword = 'test123';
         $newPassword = 'new456';
 
-        $this->member = Sanctum::actingAs(factory(Member::class)->create([
+        $this->member = Sanctum::actingAs(MemberFactory::new()->create([
             'password' => $oldPassword,
         ]), ['*']);
 

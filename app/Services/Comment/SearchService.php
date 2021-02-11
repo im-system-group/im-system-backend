@@ -16,4 +16,12 @@ class SearchService
             ->paginate($perPage);
     }
 
+    public function searchAll(Article $article)
+    {
+        return $article->comments()
+            ->with('author')
+            ->withTrashed()
+            ->get();
+    }
+
 }

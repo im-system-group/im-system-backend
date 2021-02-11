@@ -4,13 +4,14 @@
 namespace Tests\Feature;
 
 use App\Member;
+use Database\Factories\MemberFactory;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
    public function testStore()
    {
-       $member = factory(Member::class)->make();
+       $member = MemberFactory::new()->make();
 
        $password = 'testPassword';
 

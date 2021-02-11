@@ -6,6 +6,8 @@ namespace Article;
 
 use App\Article;
 use App\Member;
+use Database\Factories\ArticleFactory;
+use Database\Factories\MemberFactory;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\ActingLogin;
 
@@ -13,7 +15,7 @@ class ShowTest extends ActingLogin
 {
     public function testShow()
     {
-        $article = factory(Article::class)->create();
+        $article = ArticleFactory::new()->create();
         $author = $article->author;
         $response = $this->getJson(route('articles.show', $article->id));
 
@@ -40,11 +42,11 @@ class ShowTest extends ActingLogin
 
     public function testLike()
     {
-        $member = Sanctum::actingAs(factory(Member::class)->create(), ['*']);
+        $member = Sanctum::actingAs(MemberFactory::new()->create(), ['*']);
 
         $token = $member->createToken($member->name)->plainTextToken;
 
-        $article = factory(Article::class)->create([
+        $article = ArticleFactory::new()->create([
             'like_info' => [$member->id]
         ]);
 

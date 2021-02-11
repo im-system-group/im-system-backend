@@ -26,6 +26,9 @@ Route::middleware('api')->group(function () {
             ->name('articles.favorite.update');
 
         Route::apiResource('articles.comments', 'CommentController')->only('index', 'store', 'update', 'destroy');
+        //this route is temporary for all comment
+        Route::get('articles/{article}/comments/all', 'CommentController@all');
+
         Route::patch('articles/{article}/comments/{comment}/ban', 'CommentController@ban')->name('articles.comments.ban');
     });
 

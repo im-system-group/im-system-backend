@@ -21,7 +21,7 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except('index');
+        $this->middleware('auth:sanctum')->except('index', 'all');
     }
 
     public function index(Article $article, SearchRequest $request, SearchService $service)
@@ -29,6 +29,14 @@ class CommentController extends Controller
         $perPage = $request->perPage ?? 10;
 
         return CommentResource::collection($service->search($perPage, $article))
+            ->response()
+            ->setStatusCode(200);
+    }
+
+    //this method is temporary for all comment
+    public function all(Article $article, SearchService $service)
+    {
+        return CommentResource::collection($service->searchAll($article))
             ->response()
             ->setStatusCode(200);
     }

@@ -19,7 +19,7 @@ class Member extends User
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id', 'account', 'name', 'email', 'password', 'photo'
+        'id', 'account', 'name', 'email', 'password', 'photo', 'color'
     ];
 
     protected static function boot()

@@ -46,7 +46,8 @@ class SearchTest extends TestCase
                         'account',
                         'name',
                         'email',
-                        'avatar'
+                        'avatar',
+                        'color'
                     ]
                 ]
             ],

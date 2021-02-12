@@ -18,7 +18,8 @@ class IndexTest extends ActingLogin
                'account' => $this->member->account,
                'name' => $this->member->name,
                'email' => $this->member->email,
-               'avatar' => $this->member->avatar
+               'avatar' => $this->member->avatar,
+               'color' => $this->member->color
            ]
        ]);
    }

@@ -34,7 +34,8 @@ class ShowTest extends ActingLogin
                     'account' => $author->account,
                     'name' => $author->name,
                     'email' => $author->email,
-                    'avatar' => null
+                    'avatar' => null,
+                    'color' => $author->color
                 ]
             ]
         ]);
@@ -70,7 +71,8 @@ class ShowTest extends ActingLogin
                     'account' => $author->account,
                     'name' => $author->name,
                     'email' => $author->email,
-                    'avatar' => null
+                    'avatar' => null,
+                    'color' => $author->color
                 ]
             ]
         ]);
